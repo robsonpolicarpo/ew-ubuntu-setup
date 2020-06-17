@@ -2,6 +2,8 @@
 # * GOOGLE-CHROME
 # * BRAVE
 # * TWEAKS
+# * SimpleScreenRecorder
+# * VLC
 # * SPOTIFY
 
 
@@ -51,13 +53,35 @@ else
 fi
 
 echo "================================================================================"
+echo "[$( date "+%Y/%m/%d %H:%M:%S" )] INSTALLING VLC"
+echo            "--------------------------------------"
+PROGRAM=$( echo "$SNAP_PROGRAMS" | grep vlc )
+if [ "$PROGRAM" = "" ] ; then
+  udo snap install VLC
+else
+	echo "'VLC' already installed. Ignored"
+fi
+
+echo "================================================================================"
+echo "[$( date "+%Y/%m/%d %H:%M:%S" )] INSTALLING simplescreenrecorder"
+echo            "--------------------------------------"
+PROGRAM=$( echo "$DPKG_PROGRAMS" | grep simplescreenrecorder )
+if [ "$PROGRAM" = "" ] ; then
+	sudo add-apt-repository ppa:maarten-baert/simplescreenrecorder
+  sudo apt-get update
+  sudo apt-get install simplescreenrecorder
+else
+	echo "'simplescreenrecorder' already installed. Ignored"
+fi
+
+echo "================================================================================"
 echo "[$( date "+%Y/%m/%d %H:%M:%S" )] INSTALLING SPOTIFY"
 echo            "--------------------------------------"
 
-PROGRAM=$( echo "$SNAP_PROGRAMS" | grep spotify )
-if [ "$PROGRAM" = "" ] ; then
-	snap install spotify
-else
-	echo "'Spotify' already installed. Ignored"
-fi
+#PROGRAM=$( echo "$SNAP_PROGRAMS" | grep spotify )
+#if [ "$PROGRAM" = "" ] ; then
+#	snap install spotify
+#else
+#	echo "'Spotify' already installed. Ignored"
+#fi
 
